@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>合格女朋友三十條｜自我評估表</title>
+<style>
+  :root {
+    --bg: #0f0a12;
+    --bg2: #1a1220;
+    --card: #24182c;
+    --card-hover: #2e2038;
+    --pink: #ff6b9d;
+    --pink-soft: #ff8fb3;
+    --rose: #e84a7f;
+    --gold: #ffc857;
+    --mint: #7ddea2;
+    --text: #fff8fb;
+    --muted: #c9b4c4;
+    --border: rgba(255, 107, 157, 0.25);
+    --shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+    --radius: 20px;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    min-height: 100%;
+    font-family: "PingFang HK", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei",
+      "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background:
+      radial-gradient(ellipse 80% 60% at 10% -10%, rgba(255, 107, 157, 0.28), transparent 55%),
+      radial-gradient(ellipse 70% 50% at 100% 0%, rgba(255, 200, 87, 0.12), transparent 50%),
+      radial-gradient(ellipse 60% 40% at 50% 100%, rgba(125, 222, 162, 0.08), transparent 50%),
+      var(--bg);
+    min-height: 100dvh;
+  }
+
+  .wrap {
+    width: min(560px, 100%);
+    margin: 0 auto;
+    padding: 24px 18px 48px;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .screen { display: none; animation: fadeUp 0.45s var(--ease); }
+  .screen.active { display: flex; flex-direction: column; flex: 1; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pop {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--pink-soft);
+    background: rgba(255, 107, 157, 0.12);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+    align-self: flex-start;
+  }
+
+  h1 {
+    font-size: clamp(1.85rem, 6vw, 2.35rem);
+    line-height: 1.25;
+    font-weight: 800;
+    margin-bottom: 12px;
+    background: linear-gradient(120deg, #fff 20%, var(--pink-soft) 60%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .intro {
+    color: var(--muted);
+    font-size: 1.02rem;
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+
+  .intro strong { color: var(--pink-soft); font-weight: 600; }
+
+  .card {
+    background: linear-gradient(160deg, rgba(36, 24, 44, 0.95), rgba(26, 18, 32, 0.98));
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+  }
+
+  .meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .progress-track {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 22px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--rose), var(--pink), var(--gold));
+    border-radius: 999px;
+    transition: width 0.35s var(--ease);
+  }
+
+  .q-text {
+    font-size: 1.18rem;
+    font-weight: 700;
+    line-height: 1.55;
+    margin-bottom: 18px;
+  }
+
+  .options { display: flex; flex-direction: column; gap: 10px; }
+
+  .opt {
+    appearance: none;
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text);
+    text-align: left;
+    padding: 14px 16px;
+    border-radius: 14px;
+    font-size: 0.98rem;
+    line-height: 1.45;
+    cursor: pointer;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    font-family: inherit;
+  }
+
+  .opt:hover:not(:disabled) {
+    background: var(--card-hover);
+    border-color: rgba(255, 107, 157, 0.45);
+  }
+
+  .opt:active:not(:disabled) { transform: scale(0.985); }
+
+  .opt.selected {
+    border-color: var(--pink);
+    background: rgba(255, 107, 157, 0.18);
+    animation: pop 0.35s var(--ease);
+  }
+
+  .opt:disabled { cursor: default; opacity: 0.85; }
+
+  .letter {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 9px;
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    font-size: 0.85rem;
+    background: rgba(255, 107, 157, 0.2);
+    color: var(--pink-soft);
+  }
+
+  .opt.selected .letter {
+    background: var(--pink);
+    color: #1a0c14;
+  }
+
+  .opt-text { padding-top: 3px; }
+
+  .btn {
+    appearance: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 16px 28px;
+    border-radius: 999px;
+    color: #1a0c14;
+    background: linear-gradient(135deg, var(--pink-soft), var(--rose));
+    box-shadow: 0 10px 28px rgba(232, 74, 127, 0.4);
+    transition: transform 0.15s, filter 0.15s, box-shadow 0.15s;
+    align-self: stretch;
+    text-align: center;
+  }
+
+  .btn:hover { filter: brightness(1.06); box-shadow: 0 12px 32px rgba(232, 74, 127, 0.5); }
+  .btn:active { transform: scale(0.98); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--pink-soft);
+    border: 1.5px solid var(--border);
+    box-shadow: none;
+    margin-top: 12px;
+  }
+
+  .btn-ghost:hover { background: rgba(255, 107, 157, 0.1); filter: none; box-shadow: none; }
+
+  .hero-emoji {
+    font-size: 3.2rem;
+    margin-bottom: 10px;
+    line-height: 1;
+  }
+
+  .tips {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-top: 16px;
+  }
+
+  .result-hero {
+    text-align: center;
+    padding: 8px 0 6px;
+  }
+
+  .score-ring {
+    width: 148px;
+    height: 148px;
+    margin: 8px auto 18px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background:
+      radial-gradient(circle at center, var(--card) 58%, transparent 59%),
+      conic-gradient(var(--pink) calc(var(--pct) * 1%), rgba(255,255,255,0.08) 0);
+    box-shadow: 0 0 0 1px var(--border), var(--shadow);
+  }
+
+  .score-num {
+    font-size: 2.4rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .score-max {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .band {
+    display: inline-block;
+    font-size: 1.35rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    padding: 8px 18px;
+    border-radius: 999px;
+  }
+
+  .band.pass {
+    color: #0d2a1a;
+    background: linear-gradient(135deg, var(--mint), #b8f0d0);
+  }
+
+  .band.edge {
+    color: #3a2a08;
+    background: linear-gradient(135deg, var(--gold), #ffe09a);
+  }
+
+  .band.fail {
+    color: #fff;
+    background: linear-gradient(135deg, #a855f7, var(--rose));
+  }
+
+  .comment {
+    color: var(--muted);
+    font-size: 1.02rem;
+    line-height: 1.75;
+    text-align: left;
+    margin: 16px 0 8px;
+  }
+
+  .footer-note {
+    margin-top: auto;
+    padding-top: 28px;
+    text-align: center;
+    font-size: 0.78rem;
+    color: rgba(201, 180, 196, 0.65);
+  }
+
+  @media (max-width: 380px) {
+    .q-text { font-size: 1.08rem; }
+    .opt { font-size: 0.92rem; padding: 12px 14px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- Title -->
+    <section id="screen-start" class="screen active">
+      <span class="badge">💕 自我評估 · 純屬玩樂</span>
+      <div class="hero-emoji">👩💖</div>
+      <h1>合格女朋友<br>三十條</h1>
+      <p class="intro">
+        三十條問題，睇下你喺男朋友心目中算唔算<strong>合格女朋友</strong>。
+        用最真實嘅自己答啦，唔好扮完美——反正分數只得你自己睇到 😉<br><br>
+        每題四個選擇，答完自動下一題。滿分 <strong>90</strong> 分，<strong>60</strong> 分或以上先叫合格！
+      </p>
+      <button class="btn" id="btn-start" type="button">開始測驗</button>
+      <p class="tips">約需 3–5 分鐘 · 結果僅供一笑 · 唔好攞嚟鬧男朋友呀～</p>
+      <p class="footer-note">合格女朋友三十條 · 本地互動問卷</p>
+    </section>
+
+    <!-- Quiz -->
+    <section id="screen-quiz" class="screen">
+      <div class="meta-row">
+        <span id="progress-label">第 1 / 30 題</span>
+        <span id="score-live">暫計：0</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="card">
+        <p class="q-text" id="q-text"></p>
+        <div class="options" id="options"></div>
+      </div>
+    </section>
+
+    <!-- Result -->
+    <section id="screen-result" class="screen">
+      <span class="badge">📊 測驗結果</span>
+      <div class="card result-hero">
+        <div class="score-ring" id="score-ring" style="--pct: 0">
+          <div>
+            <div class="score-num" id="score-num">0</div>
+            <div class="score-max">/ 90 分</div>
+          </div>
+        </div>
+        <div class="band" id="band-label">—</div>
+        <p class="comment" id="comment"></p>
+      </div>
+      <button class="btn" id="btn-retry" type="button">再測一次</button>
+      <p class="footer-note">分數只供參考 · 真正合格靠日常行動 💪</p>
+    </section>
+  </div>
+
+<script>
+(function () {
+  // Fixed option labels for every question
+  const OPT = {
+    a: "做到",
+    b: "做唔到",
+    c: "做咗但心唔喺度",
+    d: "唔記得"
+  };
+
+  const QUESTIONS = [
+    {
+      q: "嬲完之後，你會唔會消失／用沉默當懲罰，而係穩定咁處理情緒、唔玩失蹤？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "你講出口嘅承諾，同實際做到嘅嘢係咪夾埋——講到做到、唔講大話？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "男朋友講感受嗰陣，你會唔會先聽完、接住佢，而唔係即刻反駁或者辯護？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "你記唔記得佢鍾意乜、怕乜、攰嘅時候需要乜——細節有冇放喺心？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "關心、幫忙、約時間呢啲，你會唔會主動郁，唔使等到對方先開口？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "你付出之後，會唔會唔將愛變債務——唔用「我為你做咗咁多」嚟逼對方欠你？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "吵交或者唔開心嗰陣，你分唔分得清邊啲係自己嘅問題，而唔係一律怪對方？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "認錯嗰陣，你肯唔肯講清楚「我嗰度錯咗」，而唔係敷衍一句「得啦得啦」？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "當對方露出脆弱、不安或者唔夠自信，你會唔會保護佢、唔取笑、唔向外講？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "平淡日子都仲記得對佢好——唔係淨係高潮同節日先錫，長遠都放喺心？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "對方講「唔」——唔想去、唔想講、需要空間——你會唔會尊重，唔硬逼？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "新爭執出現嗰陣，你會唔會唔翻舊帳，專心處理眼前件事？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "喺朋友面前，你仲會唔會錫佢、撐佢，而唔係為咗好玩當眾踩低或者冷落？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "面對佢嘅唔完美（習慣、性格、不足），你會唔會包容，而唔係成日挑剔？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "對方做錯嘢嗰陣，你會唔會先問「點解」，了解原因，而唔淨係鬧？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "你分唔分得開「嬲件事」同「嬲佢本人」——唔將一件事變成全面否定對方？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "你道歉之後，會唔會唔等對方即刻獎勵、讚你或者馬上當無事——畀時間消化？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "平日你仲記唔記得一齊嘅原因——當初點解揀對方、珍惜咩特質？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "對方唔開心或者攰嘅時候，你有時會唔會淨係攬實，唔急住講道理？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "你明唔明白愛係日常細節（關心、可靠、溫柔），而唔係淨係靠高潮同浪漫場面？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "當對方表達需要（陪伴、傾訴、幫忙），你會唔會唔當成負擔或者麻煩？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "Conflict／嘈完之後，你會唔會主動問「我哋而家點」，一齊釐清狀態？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "對方最攰、壓力最大嗰陣，你會唔會唔喺嗰刻要求佢滿足你嘅情緒或者做事？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "你為佢做咗細嘢（買餸、記日子、幫忙），會唔會肯講得出聲，唔期望對方靠估？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "你會唔會唔將男朋友同媽媽、同事或者其他男人比較——畀佢做自己？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "Fight 完之後，你會唔會唔即刻逼和好，而係畀雙方冷靜同消化情緒？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "對方同你講嘢嗰陣，你會唔會唔玩手機、專心聽？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "即使對方講嘅係「小事」，你會唔會當大事咁認真聽，因為對佢嚟講可能好重要？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "遇到唔肯定、唔知點答嘅時候，你學識未講「我唔知」——唔硬撐、唔亂編？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    },
+    {
+      q: "最後一題：你記唔記得兩個人係隊友唔係對手——一齊贏，而唔係互相比低、互相比輸贏？",
+      a: OPT.a, b: OPT.b, c: OPT.c, d: OPT.d
+    }
+  ];
+
+  const POINTS = { A: 3, B: 0, C: 1, D: 0.5 };
+  const DELAY_MS = 350;
+
+  let index = 0;
+  let total = 0;
+  let locked = false;
+
+  const elStart = document.getElementById("screen-start");
+  const elQuiz = document.getElementById("screen-quiz");
+  const elResult = document.getElementById("screen-result");
+  const elQText = document.getElementById("q-text");
+  const elOptions = document.getElementById("options");
+  const elProgressLabel = document.getElementById("progress-label");
+  const elProgressFill = document.getElementById("progress-fill");
+  const elScoreLive = document.getElementById("score-live");
+  const elScoreNum = document.getElementById("score-num");
+  const elScoreRing = document.getElementById("score-ring");
+  const elBand = document.getElementById("band-label");
+  const elComment = document.getElementById("comment");
+
+  function show(screen) {
+    [elStart, elQuiz, elResult].forEach((s) => s.classList.remove("active"));
+    screen.classList.add("active");
+  }
+
+  function renderQuestion() {
+    locked = false;
+    const item = QUESTIONS[index];
+    elProgressLabel.textContent = "第 " + (index + 1) + " / " + QUESTIONS.length + " 題";
+    elProgressFill.style.width = ((index / QUESTIONS.length) * 100) + "%";
+    elScoreLive.textContent = "暫計：" + formatScore(total);
+    elQText.textContent = item.q;
+    elOptions.innerHTML = "";
+
+    ["A", "B", "C", "D"].forEach((key) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "opt";
+      btn.dataset.key = key;
+      btn.innerHTML =
+        '<span class="letter">' + key + "</span>" +
+        '<span class="opt-text">' + item[key.toLowerCase()] + "</span>";
+      btn.addEventListener("click", onSelect);
+      elOptions.appendChild(btn);
+    });
+  }
+
+  function formatScore(n) {
+    return Number.isInteger(n) ? String(n) : n.toFixed(1);
+  }
+
+  function onSelect(e) {
+    if (locked) return;
+    locked = true;
+    const btn = e.currentTarget;
+    const key = btn.dataset.key;
+    total += POINTS[key];
+    btn.classList.add("selected");
+    Array.from(elOptions.children).forEach((b) => {
+      b.disabled = true;
+    });
+    elScoreLive.textContent = "暫計：" + formatScore(total);
+
+    setTimeout(() => {
+      index += 1;
+      if (index >= QUESTIONS.length) {
+        elProgressFill.style.width = "100%";
+        showResult();
+      } else {
+        renderQuestion();
+      }
+    }, DELAY_MS);
+  }
+
+  function showResult() {
+    const score = total;
+    const pct = Math.min(100, (score / 90) * 100);
+    elScoreNum.textContent = formatScore(score);
+    elScoreRing.style.setProperty("--pct", pct.toFixed(2));
+
+    let band, cls, comment;
+    if (score >= 60) {
+      band = "合格女朋友 ✨";
+      cls = "pass";
+      comment =
+        "恭喜！以呢份卷嚟計，你已經踏入「合格女朋友」區。你大致識得穩定、傾聽、尊重同日常付出，亦願意為關係成長。" +
+        "繼續保持就得——記住合格唔係終點，係每日都選擇對佢好、同佢做隊友。去攬實你個男朋友，話佢知你珍惜佢啦！💕";
+    } else if (score >= 40) {
+      band = "合格邊緣／要改進";
+      cls = "edge";
+      comment =
+        "你唔係完全唔識做女朋友，但仲有幾舊位要執。可能係情緒處理、舊帳、比較、或者細節照顧仲有進步空間。" +
+        "好消息係：呢啲多數改得到。揀兩三项對方最在意嘅，今個星期開始認真做，進步會好明顯。" +
+        "溫馨提示：問清楚佢需要咩，好過自己估。加油，你距離合格其實唔遠 💪";
+    } else {
+      band = "需認真面對";
+      cls = "fail";
+      comment =
+        "分數反映而家呢段關係入面，對方可能經常覺得被罰沉默、被翻舊帳、唔被傾聽或者變成對手多過隊友。" +
+        "呢個唔係話你係壞人，而係提示：如果想維繫感情，要認真檢視自己嘅態度同行動——尤其係穩定、認錯、尊重同日常溫柔。" +
+        "建議你靜低心傾一次，聽完唔好急住辯護。改唔改係你嘅選擇；但拖住對方一齊辛苦，對兩邊都唔公平。" +
+        "願你願意成長，亦畀對方一個清楚嘅答案。";
+    }
+
+    elBand.textContent = band;
+    elBand.className = "band " + cls;
+    elComment.textContent = comment;
+    show(elResult);
+  }
+
+  function resetAll() {
+    index = 0;
+    total = 0;
+    locked = false;
+    show(elStart);
+  }
+
+  document.getElementById("btn-start").addEventListener("click", () => {
+    index = 0;
+    total = 0;
+    show(elQuiz);
+    renderQuestion();
+  });
+
+  document.getElementById("btn-retry").addEventListener("click", resetAll);
+
+  // sanity: ensure 30
+  if (QUESTIONS.length !== 30) {
+    console.warn("Expected 30 questions, got", QUESTIONS.length);
+  }
+})();
+</script>
+</body>
+</html>
